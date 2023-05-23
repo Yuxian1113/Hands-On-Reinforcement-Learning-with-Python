@@ -1,4 +1,4 @@
-RL  notes
+# RL  notes
 ## terminologies
 - agent
     - the software programs that **make intelligent decisions**
@@ -63,3 +63,44 @@ RL  notes
     writer.close()
     ```
     - show the graph by typing `tensorboard --logdir=output --port=6020` in terminal
+
+## Markov Decision Process (MDP)
+Definition: 
+- the future depends only on the **present** and **not on the past**
+- a probabilistic model that solely depends on the **current state** to **predict the next state**
+- transition: moving from one state to another
+- transition probability: the possibility of moving from one state to another
+
+### elements
+- $S$: A set of states the agent can actually be in
+- $A$: A set of actions that can be performed by an agent
+- $P^a_{SS'}$: transition probability of transiting from state $s$ to $s'$ by perfoming  action $a$'
+- $R^a_{ss'}$: **probability** of a reward acquired by the agent for moving from state $s$ to $s'$
+- $\gamma$: discount factor, controls the importance of immediate and futrue reward. 
+    - $R_t=r_{t+1}+\gamma r_{t+2}+\gamma^2 r_{t+3}+\dots$
+    - the future rewards are more important than immediate rewards
+    - optimal value: 0.2 to 0.8
+
+### policy function
+- denoted by $\pi (s): S \rightarrow A$
+- mapping from states to actions
+- what action to perform in each state to **maximize the reward**
+                       
+### state value function
+- how good it is for an agent to **be in a particular state** with a policy $\pi$
+- $V^\pi(s)=E_\pi[R_t|s_t=s]$
+- expected value of the reward starting from state $s$ according to policy $\pi$
+- the goodness of a **state**
+
+### State-action value function
+- also known as **Q function**
+- how good it is for an agent to **perform a particular action** in a state with a policy $\pi$
+- $Q^\pi(s,a) = E_\pi[R_t|s_t=s, a_t=a]$
+- the goodness of an **action** in a state
+
+### Bellman equation
+- solve
+    - initialize random value function
+    - for each state, calculate $Q(s,a)$
+    - update the value function with the one which acquires maximal $Q(s,a)$
+    - repeat until $V$ is optimal
